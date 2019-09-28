@@ -3,4 +3,4 @@ CMakeLists.txt
 objects/*
 libft/*.o
 .idea/
-
+.DS_Store
