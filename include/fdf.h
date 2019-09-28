@@ -7,14 +7,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <fcntl.h>
+#include "../libft/libft.h"
 
-//typedef	struct		s_map
-//{
-//	int 			x;
-//	int 			y;
-//	int 			z;
-//	struct s_map	*next;
-//}					t_map;
+#define BUFF_SIZE 1
 
 typedef struct		s_mlx
 {
@@ -23,16 +18,21 @@ typedef struct		s_mlx
 	void			*img_ptr;
 	int				*data;
 
-	int 		    bits_per_pixel;
-	int 		    size_line;
-	int				endian;
+	int 		    bpp;
+	int 		    size_l;
+	int				e;
 
-	char 			**map;
+	int 			*map;
+	int 			map_h; //x
+	int 			map_w; //y
 
-//	t_map			*map;
 	struct s_mlx		*next;
 }					t_mlx;
 
-char 	**map_read(int fd);
+
+void	ex_error(int num);
+void	line(int x0, int y0, int x1, int y1, t_mlx *mlx, unsigned int color);
+char 	**map_read(t_mlx *m, char *name_f);
+int		get_next_line(const int fd, char **line);
 
 #endif

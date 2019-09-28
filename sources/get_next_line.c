@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "fdf.h"
 
-t_list	*ft_lstsearchfd(const int fd, t_list *start)
+static t_list	*ft_lstsearchfd(const int fd, t_list *start)
 {
 	t_list	*end;
 	char	*str;
@@ -38,7 +38,7 @@ t_list	*ft_lstsearchfd(const int fd, t_list *start)
 	return (end);
 }
 
-int		ft_cut_cont(void **vo, int was_read, char **line)
+static int		ft_cut_cont(void **vo, int was_read, char **line)
 {
 	char	**str;
 	char	*tmp;

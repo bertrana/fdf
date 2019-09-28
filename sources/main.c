@@ -6,18 +6,21 @@
 
 // gcc -I /usr/local/include main.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 //переместить потом в либу
-void	ft_swap(int *a, int *b)
-{
-	int	tmp;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
 
 void	ex_error(int num)
 {
-	write(2, "Error\n", 7);
+	char 	*write_err;
+
+	if (num == 1)
+		write_err = "Not one argument\n";
+	else if (num == 2)
+		write_err = "Can't work with file\n";
+	else if (num == 3)
+		write_err = "Not valid map\n";
+	else if (num == 4)
+		write_err = "Can't malloc memory\n";
+	write(2, write_err, ft_strlen(write_err));
 	exit(EXIT_FAILURE);
 	//return ;
 }
@@ -65,26 +68,58 @@ void	line(int x0, int y0, int x1, int y1, t_mlx *mlx, unsigned int color)
 	}
 }
 
+void 	ft_count(int *h, int *w, char *name_f)
+{
+	int 	fd;
+	char	*str;
+	int 	tmp;
+
+	fd = open(name_f, O_RDONLY);
+	fd < 0 ? ex_error(2) : (*w = 0);
+	*h = 0;
+	while ((tmp = get_next_line(fd, &str)) > 0)
+	{
+		if (*w == 0)
+		{
+			while(str[*h])
+			{
+				if
+			}
+		}
+		free(str);
+		(*w)++;
+	}
+	if (tmp < 0)
+		ex_error(2);
+	close(fd);
+}
+
+void	ft_init(t_mlx *m, char *name_f)
+{
+	char	*tmp;
+
+	m->ptr = mlx_init();
+	m->win_ptr = mlx_new_window(m->ptr, SIZE_X, SIZE_Y, "fdf");
+	m->img_ptr = mlx_new_image(m->ptr, SIZE_X, SIZE_Y);
+	tmp = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->size_l), &(m->e));
+	m->data = (int *)tmp;
+	ft_count(&(m->map_h),&(m->map_w), name_f);
+	m->map = map_read(m, name_f);
+}
+
 int		main(int argv, char **argc)
 {
 	t_mlx	*mlx;
-	int 	fd;
+	//int 	fd;
 
-	if (argv != 2 || (fd = open(argc[1], O_RDONLY)) <= 0)
+
+	if (argv != 2)
 		ex_error(1);
+	if (!(mlx = (t_mlx *)malloc(sizeof(t_mlx))))
+		ex_error(4);
+	ft_init(mlx, argc[1]);
 
-	mlx = (t_mlx *)malloc(sizeof(t_mlx));
-	mlx->map = map_read(fd);
-	mlx->ptr = mlx_init();
-
-	mlx->win_ptr = mlx_new_window(mlx->ptr, SIZE_X, SIZE_Y, "fractol");
-	
-	mlx->img_ptr = mlx_new_image(mlx->ptr, SIZE_X, SIZE_Y);
-	mlx->data = (int *)mlx_get_data_addr(mlx->img_ptr, &(mlx->bits_per_pixel), &(mlx->size_line), &(mlx->endian));
-
-
-	line(45, 20, 427, 326, mlx, mlx_get_color_value (mlx->ptr, 0x08ffb5));
-	line(20,427, 462, 25,  mlx, mlx_get_color_value (mlx->ptr, 0x08f000));
+	line(30, 30, 80, 80, mlx, 0xFFFFFF);
 	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 	mlx_loop(mlx->ptr);
 }
