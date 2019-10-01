@@ -10,6 +10,8 @@
 #include "../libft/libft.h"
 
 #define BUFF_SIZE 1
+#define SIZE_X 500
+#define SIZE_Y 500
 
 typedef struct		s_mlx
 {
@@ -22,7 +24,7 @@ typedef struct		s_mlx
 	int 		    size_l;
 	int				e;
 
-	int 			*map;
+	int 			**map;
 	int 			map_h; //x
 	int 			map_w; //y
 
@@ -31,8 +33,10 @@ typedef struct		s_mlx
 
 
 void	ex_error(int num);
-void	line(int x0, int y0, int x1, int y1, t_mlx *mlx, unsigned int color);
-char 	**map_read(t_mlx *m, char *name_f);
+void	line(int x0, int y0, int x1, int y1, t_mlx *mlx);
+t_mlx	*ft_init(t_mlx *m, char *name_f);
+void 	ft_count(int *h, int *w, char *name_f);
+void	map_read(t_mlx *m, char *name_f);
 int		get_next_line(const int fd, char **line);
 
 #endif

@@ -32,7 +32,8 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 SOURCES_DIRECTORY = ./sources/
 SOURCES_LIST = main.c\
 	get_next_line.c\
-	map_read.c
+	map_read.c\
+	ft_init.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objects/

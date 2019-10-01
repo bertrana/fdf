@@ -6,11 +6,17 @@
 /*   By: yjohns <yjohns@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 16:52:21 by yjohns            #+#    #+#             */
-/*   Updated: 2019/06/30 19:52:04 by yjohns           ###   ########.fr       */
+/*   Updated: 2019/09/28 13:21:07 by yjohns           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+void		err_e()
+{
+	write(2, "156Can't work with file\n", ft_strlen("156Can't work with file\n"));
+	exit(EXIT_FAILURE);
+}
 
 static int	find_number(const char **str)
 {
@@ -35,10 +41,15 @@ int			ft_atoi(const char *str)
 
 	min = find_number(&str);
 	i = 0;
-	while (*str >= '0' && *str <= '9' && *str)
+	while (ft_isdigit(*str) && *str)
 	{
 		i = i * 10 + (*str - '0') * min;
 		str++;
+		if (*str && !(ft_isdigit(*str)) && (*str != ' '))
+			err_e();
+		if (*str && ((i * 10 < -2147483648 && *str == '9') ||
+				(i * 10 > 2147483647 && (*str == '8' || *str == '9'))))
+			err_e();
 	}
 	return (i);
 }
