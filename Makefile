@@ -6,7 +6,7 @@
 #    By: yjohns <yjohns@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/28 02:18:46 by yjohns            #+#    #+#              #
-#    Updated: 2019/09/28 04:36:44 by yjohns           ###   ########.fr        #
+#    Updated: 2019/10/02 02:59:17 by yjohns           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 SOURCES_DIRECTORY = ./sources/
 SOURCES_LIST = main.c\
 	get_next_line.c\
-	map_read.c\
-	ft_init.c
+	ft_init.c\
+	draw_image.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objects/

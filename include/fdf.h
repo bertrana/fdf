@@ -38,5 +38,6 @@ t_mlx	*ft_init(t_mlx *m, char *name_f);
 void 	ft_count(int *h, int *w, char *name_f);
 void	map_read(t_mlx *m, char *name_f);
 int		get_next_line(const int fd, char **line);
+void	draw_image(t_mlx *m);
 
 #endif
