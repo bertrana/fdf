@@ -6,7 +6,7 @@
 /*   By: yjohns <yjohns@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 17:14:18 by yjohns            #+#    #+#             */
-/*   Updated: 2019/09/28 13:18:18 by yjohns           ###   ########.fr       */
+/*   Updated: 2019/10/03 17:49:09 by yjohns           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,5 @@ t_list				*ft_lstradd(t_list *alst, t_list *new);
 int					ft_strlchr(const char *str, int symbol, int num_s);
 int					ft_lstlen(t_list *lst);
 void				ft_strdup_free(char **s, char *arg);
-void				ft_swap(int *a, int *b);
-void				ft_print_matri(int **matr, int x, int y);
-void				ft_print_massi(int *mass, int x);
 
 #endif

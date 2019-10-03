@@ -28,6 +28,8 @@ typedef struct		s_mlx
 	int 			map_h; //x
 	int 			map_w; //y
 
+
+
 	struct s_mlx		*next;
 }					t_mlx;
 
