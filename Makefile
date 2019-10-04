@@ -33,7 +33,8 @@ SOURCES_DIRECTORY = ./sources/
 SOURCES_LIST = main.c\
 	get_next_line.c\
 	ft_init.c\
-	draw_image.c
+	draw_image.c\
+	controls.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objects/

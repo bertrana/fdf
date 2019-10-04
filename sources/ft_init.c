@@ -115,7 +115,7 @@ t_mlx	*ft_init(t_mlx *m, char *name_f)
 	m->img_ptr = mlx_new_image(m->ptr, SIZE_X, SIZE_Y);
 	tmp = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->size_l), &(m->e));
 	m->data = (int *)tmp;
-
+	m->p_i = 1;
 	ft_count(&(m->map_h),&(m->map_w), name_f);
 	m->map = (int **)malloc(sizeof(int *) * m->map_w);
 	map_read(m, name_f);

@@ -86,5 +86,8 @@ t_list				*ft_lstradd(t_list *alst, t_list *new);
 int					ft_strlchr(const char *str, int symbol, int num_s);
 int					ft_lstlen(t_list *lst);
 void				ft_strdup_free(char **s, char *arg);
+void				ft_swap(int *a, int *b);
+void				ft_print_matri(int **matr, int x, int y);
+void				ft_print_massi(int *mass, int x);
 
 #endif

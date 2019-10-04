@@ -23,6 +23,7 @@ typedef struct		s_mlx
 	int 		    bpp;
 	int 		    size_l;
 	int				e;
+	int 			p_i;
 
 	int 			**map;
 	int 			map_h; //x
@@ -40,6 +41,9 @@ t_mlx	*ft_init(t_mlx *m, char *name_f);
 void 	ft_count(int *h, int *w, char *name_f);
 void	map_read(t_mlx *m, char *name_f);
 int		get_next_line(const int fd, char **line);
+void	p_draw_image(t_mlx *m);
+void	i_draw_image(t_mlx *m);
 void	draw_image(t_mlx *m);
+void	controls(t_mlx *mlx);
 
 #endif
