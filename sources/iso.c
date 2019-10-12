@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls.c                                         :+:      :+:    :+:   */
+/*   iso.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjohns <yjohns@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/04 13:53:02 by yjohns            #+#    #+#             */
-/*   Updated: 2019/10/04 20:40:10 by yjohns           ###   ########.fr       */
+/*   Created: 2019/10/04 18:06:15 by yjohns            #+#    #+#             */
+/*   Updated: 2019/10/05 17:26:59 by yjohns           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		b_close(void *param)
+//void 	toISO(int *x, int *y, int z)
+//{
+//    int 	p_x;
+//    int 	p_y;
+//
+//    p_x = *x;
+//    p_y = *y;
+//    *x = (int)((p_x - p_y) * cos(0.523599));
+//    *y = (int)(-z + (p_x + p_y) * sin(0.523599));
+//}
+
+void	i_draw_image(t_mlx *m)
 {
-	(void)param;
-	exit(0);
-}
+	t_mlx *azaza;
 
-int 	key_press(int keycode, void *param)
-{
-	t_mlx	*m;
-
-	m = (t_mlx *)param;
-
-	if (keycode == 53)
-		exit(0);
-	if (keycode == 35)
-		m->p_i = 0;
-	if (keycode == 34)
-		m->p_i = 1;
-	draw_image(m);
-	return (0);
-}
-
-void	controls(t_mlx *mlx)
-{
-
-	mlx_hook(mlx->win_ptr, 17, 0, b_close, mlx);
-	mlx_hook(mlx->win_ptr, 2, 0, key_press, mlx);
+	azaza = m;
 }

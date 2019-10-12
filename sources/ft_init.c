@@ -6,7 +6,7 @@
 /*   By: yjohns <yjohns@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 02:59:13 by yjohns            #+#    #+#             */
-/*   Updated: 2019/10/02 02:59:17 by yjohns           ###   ########.fr       */
+/*   Updated: 2019/10/06 14:52:05 by yjohns           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,14 @@ void	map_read(t_mlx *m, char *name_f)
 		ex_error(-1);
 	while((tmp = get_next_line(fd, &str)) > 0)
 	{
-		m->map[i] = str_parser(str, &(m->map_h));
+		printf("i = %d", i);
+		m->mmap[i] = str_parser(str, &(m->map_h));
 		free(str);
 		i++;
 	}
 	tmp < 0 ? ex_error(-1) : i++;
 }
+
 void 	ft_count(int *h, int *w, char *name_f)
 {
 	int 	fd;
@@ -91,9 +93,8 @@ void 	ft_count(int *h, int *w, char *name_f)
 		*h = 0;
 		while(str[*h])
 		{
-			if ((str[*h] == ' ' && !ft_isdigit(str[*h - 1])) ||
-				(str[*h] != ' ' && !ft_isdigit(str[*h]) && str[*h] != '-' &&
-				 str[*h] != '+'))
+			if (str[*h] != ' ' && !ft_isdigit(str[*h]) && str[*h] != '-' &&
+				 str[*h] != '+')
 				ex_error(3);
 			(*h)++;
 		}
@@ -109,6 +110,8 @@ void 	ft_count(int *h, int *w, char *name_f)
 t_mlx	*ft_init(t_mlx *m, char *name_f)
 {
 	char	*tmp;
+	int 	a;
+	int 	b;
 
 	m->ptr = mlx_init();
 	m->win_ptr = mlx_new_window(m->ptr, SIZE_X, SIZE_Y, "fdf");
@@ -116,8 +119,16 @@ t_mlx	*ft_init(t_mlx *m, char *name_f)
 	tmp = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->size_l), &(m->e));
 	m->data = (int *)tmp;
 	m->p_i = 1;
+
+
 	ft_count(&(m->map_h),&(m->map_w), name_f);
-	m->map = (int **)malloc(sizeof(int *) * m->map_w);
+	m->mmap = (int **)malloc(sizeof(int *) * m->map_w);
 	map_read(m, name_f);
+	m->cen = SIZE_X * ((SIZE_Y - m->map_h)/ 4) + (SIZE_X / 4);
+	a = (SIZE_X / m->map_h) / 2;
+	b = (SIZE_Y / m->map_w) / 2;
+	m->zoom = a > b ? b : a;
+	//m->map = mass_to_struct(m);
+	//printf("init %d\n", ft_lstmlen(m->map));
 	return (m);
 }
