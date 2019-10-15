@@ -141,12 +141,14 @@ void	draw_image(t_mlx *m)
 			p1[1] = y;
 			p2[0] = x + 1;
 			p2[1] = y;
-			printf("1  (%d %d) : (%d %d)\n", p1[0], p1[1], p2[0], p2[1]);
+//			if (x != m->map_h - 1)
+//				printf("1  (%d %d %d) : (%d %d %d)\n", p1[0], p1[1], m->mmap[p1[1]][p1[0]], p2[0], p2[1], m->mmap[p2[1]][p2[0]]);
 			if (x != m->map_h - 1)
 				draw_line(p1, p2, m);
 			p2[0] = x;
 			p2[1] = y + 1;
-			printf("2  (%d %d) : (%d %d)\n", p1[0], p1[1], p2[0], p2[1]);
+//			if (y != m->map_w - 1)
+//				printf("1  (%d %d %d) : (%d %d %d)\n", p1[0], p1[1], m->mmap[p1[1]][p1[0]], p2[0], p2[1], m->mmap[p2[1]][p2[0]]);
 			if (y != m->map_w - 1)
 				draw_line(p1, p2, m);
 			x++;

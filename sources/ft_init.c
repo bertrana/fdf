@@ -41,6 +41,7 @@ int 	count_num(char *str)
 
 int 	*str_parser(char *str, int *h)
 {
+	static int	i = 0;
 	int			*mass;
 	int 		tmp;
 
@@ -54,9 +55,14 @@ int 	*str_parser(char *str, int *h)
 	while (tmp < *h && *str)
 	{
 		mass[tmp] = ft_atoi(str);
+		printf("%d mass[%d] = %d\n",i, tmp, mass[tmp]);
+		str++;
 		str = ft_strchr(str, ' ') + 1;
+//		while(!ft_isdigit((int)(*str)))
+//			str++;
 		tmp++;
 	}
+	i++;
 	return (mass);
 }
 
@@ -72,7 +78,6 @@ void	map_read(t_mlx *m, char *name_f)
 		ex_error(-1);
 	while((tmp = get_next_line(fd, &str)) > 0)
 	{
-		printf("i = %d", i);
 		m->mmap[i] = str_parser(str, &(m->map_h));
 		free(str);
 		i++;
