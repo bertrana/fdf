@@ -12,10 +12,10 @@
 
 #include "fdf.h"
 
-int 	count_num(char *str)
+static int	count_num(char *str)
 {
-	int len;
-	int flag;
+	int		len;
+	int		flag;
 
 	flag = 0;
 	len = 0;
@@ -39,11 +39,11 @@ int 	count_num(char *str)
 	return (len);
 }
 
-int 	*str_parser(char *str, int *h)
+static int	*str_parser(char *str, int *h)
 {
 	static int	i = 0;
 	int			*mass;
-	int 		tmp;
+	int			tmp;
 
 	tmp = count_num(str);
 	if (*h != 0 && *h != tmp)
@@ -55,28 +55,25 @@ int 	*str_parser(char *str, int *h)
 	while (tmp < *h && *str)
 	{
 		mass[tmp] = ft_atoi(str);
-		printf("%d mass[%d] = %d\n",i, tmp, mass[tmp]);
 		str++;
 		str = ft_strchr(str, ' ') + 1;
-//		while(!ft_isdigit((int)(*str)))
-//			str++;
 		tmp++;
 	}
 	i++;
 	return (mass);
 }
 
-void	map_read(t_mlx *m, char *name_f)
+static void	map_read(t_mlx *m, char *name_f)
 {
 	int		fd;
-	char 	*str;
-	int 	tmp;
+	char	*str;
+	int		tmp;
 	int		i;
 
 	i = 0;
 	if ((fd = open(name_f, O_RDONLY)) <= 0)
 		ex_error(-1);
-	while((tmp = get_next_line(fd, &str)) > 0)
+	while ((tmp = get_next_line(fd, &str)) > 0)
 	{
 		m->mmap[i] = str_parser(str, &(m->map_h));
 		free(str);
@@ -85,21 +82,21 @@ void	map_read(t_mlx *m, char *name_f)
 	tmp < 0 ? ex_error(-1) : i++;
 }
 
-void 	ft_count(int *h, int *w, char *name_f)
+static void	ft_count(int *h, int *w, char *name_f)
 {
-	int 	fd;
+	int		fd;
 	char	*str;
-	int 	tmp;
+	int		tmp;
 
 	fd = open(name_f, O_RDONLY);
 	fd < 0 ? ex_error(-1) : (*w = 0);
 	while ((tmp = get_next_line(fd, &str)) > 0)
 	{
 		*h = 0;
-		while(str[*h])
+		while (str[*h])
 		{
 			if (str[*h] != ' ' && !ft_isdigit(str[*h]) && str[*h] != '-' &&
-				 str[*h] != '+')
+				str[*h] != '+')
 				ex_error(3);
 			(*h)++;
 		}
@@ -112,28 +109,26 @@ void 	ft_count(int *h, int *w, char *name_f)
 	close(fd);
 }
 
-t_mlx	*ft_init(t_mlx *m, char *name_f)
+t_mlx		*ft_init(t_mlx *m, char *name_f)
 {
 	char	*tmp;
-	int 	a;
-	int 	b;
+	int		a;
+	int		b;
 
+	ft_count(&(m->map_h), &(m->map_w), name_f);
 	m->ptr = mlx_init();
+	m->mmap = (int **)malloc(sizeof(int *) * m->map_w);
+	map_read(m, name_f);
+	m->d_z = find_d_z(m->mmap, m->map_h, m->map_w);
 	m->win_ptr = mlx_new_window(m->ptr, SIZE_X, SIZE_Y, "fdf");
 	m->img_ptr = mlx_new_image(m->ptr, SIZE_X, SIZE_Y);
 	tmp = mlx_get_data_addr(m->img_ptr, &(m->bpp), &(m->size_l), &(m->e));
 	m->data = (int *)tmp;
-	m->p_i = 1;
-
-
-	ft_count(&(m->map_h),&(m->map_w), name_f);
-	m->mmap = (int **)malloc(sizeof(int *) * m->map_w);
-	map_read(m, name_f);
-	m->cen = SIZE_X * ((SIZE_Y - m->map_h)/ 4) + (SIZE_X / 4);
+	m->p_i = 0;
+	m->left_right = 0;
+	m->up_down = 0;
 	a = (SIZE_X / m->map_h) / 2;
-	b = (SIZE_Y / m->map_w) / 2;
+	b = (SIZE_Y / (m->map_w > (m->d_z) ? m->map_w : (m->d_z))) / 2;
 	m->zoom = a > b ? b : a;
-	//m->map = mass_to_struct(m);
-	//printf("init %d\n", ft_lstmlen(m->map));
 	return (m);
 }

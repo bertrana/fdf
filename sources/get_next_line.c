@@ -65,7 +65,7 @@ static int		ft_cut_cont(void **vo, int was_read, char **line)
 	return (1);
 }
 
-int		get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
 	static t_list	*lst = NULL;
 	char			str[BUFF_SIZE + 1];

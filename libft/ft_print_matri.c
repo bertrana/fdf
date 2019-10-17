@@ -14,7 +14,7 @@
 
 void	ft_print_matri(int **matr, int x, int y)
 {
-	int 	i;
+	int		i;
 	char	n;
 
 	n = '\n';

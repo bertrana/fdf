@@ -12,9 +12,10 @@
 
 #include "libft.h"
 
-void		err_e()
+void		err_e(void)
 {
-	write(2, "156Can't work with file\n", ft_strlen("156Can't work with file\n"));
+	write(2, "156Can't work with file\n",
+			ft_strlen("156Can't work with file\n"));
 	exit(EXIT_FAILURE);
 }
 

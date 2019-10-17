@@ -12,22 +12,22 @@
 
 #include "fdf.h"
 
-//static void	draw_background(t_mlx *m)
-//{
-//	int	*image;
-//	int	i;
-//
-//	ft_bzero(m->data, SIZE_X * SIZE_Y * (m->bpp / 8));
-//	image = (int *)(m->data);
-//	i = 0;
-//	while (i < SIZE_X * SIZE_Y)
-//	{
-//		image[i] = 0x101010;
-//		i++;
-//	}
-//}
+static void		draw_background(t_mlx *m)
+{
+	int	*image;
+	int	i;
 
-int		check_swap(int *x0, int *y0, int *x1, int *y1)
+	ft_bzero(m->data, SIZE_X * SIZE_Y * (m->bpp / 8));
+	image = (int *)(m->data);
+	i = 0;
+	while (i < SIZE_X * SIZE_Y)
+	{
+		image[i] = 0x101010;
+		i++;
+	}
+}
+
+static int		check_swap(int *x0, int *y0, int *x1, int *y1)
 {
 	int		flag;
 
@@ -46,18 +46,13 @@ int		check_swap(int *x0, int *y0, int *x1, int *y1)
 	return (flag);
 }
 
-void	p_draw_image(t_mlx *m)
+static void		line(int p1[2], int p2[2], t_mlx *m)
 {
-	mlx_put_image_to_window(m->ptr, m->win_ptr, m->img_ptr, 0, 0);
-}
-
-void	line(int p1[2], int p2[2], t_mlx *m)
-{
-	int 	x;
-	int 	y;
-	int 	err;
-	int 	flag;
-	int 	i;
+	int		x;
+	int		y;
+	int		err;
+	int		flag;
+	int		i;
 
 	flag = check_swap(&(p1[0]), &(p1[1]), &(p2[0]), &(p2[1]));
 	x = p1[0];
@@ -77,38 +72,12 @@ void	line(int p1[2], int p2[2], t_mlx *m)
 			err -= (p2[0] - p1[0]) * 2;
 		}
 	}
-
 }
 
-void 	toISO(int *x, int *y, int z)
+static void		draw_line(int p1[2], int p2[2], t_mlx *m)
 {
-    int 	p_x;
-    int 	p_y;
-
-    p_x = *x;
-    p_y = *y;
-    *x = (int)((p_x - p_y) * cos(0.523599));
-    *y = (int)(-z + (p_x + p_y) * sin(0.523599));
-}
-
-void	check_coord(int *x, int *y, t_mlx *m, int point[2])
-{
-	*x *= m->zoom;
-	*y *= m->zoom;
-
-	*x -= (m->map_h * m->zoom) / 2;
-	*y -= (m->map_w * m->zoom) / 2;
-
-	if (m->p_i == 1)
-		toISO(x, y, m->mmap[point[1]][point[0]] * m->zoom);
-	*x += (SIZE_X / 2);
-	*y += (SIZE_Y + m->map_w * m->zoom) / 2;
-}
-
-void	draw_line(int p1[2], int p2[2], t_mlx *m)
-{
-	int 	f[2];
-	int 	s[2];
+	int f[2];
+	int s[2];
 
 	f[0] = p1[0];
 	f[1] = p1[1];
@@ -116,44 +85,32 @@ void	draw_line(int p1[2], int p2[2], t_mlx *m)
 	s[1] = p2[1];
 	check_coord(&(f[0]), &(f[1]), m, p1);
 	check_coord(&(s[0]), &(s[1]), m, p2);
-
 	line(f, s, m);
-
 }
 
-void	draw_image(t_mlx *m)
+void			draw_image(t_mlx *m)
 {
-	int 	x;
-	int 	y;
-	int 	p1[2];
-	int 	p2[2];
+	int p1[2];
+	int p2[2];
 
-	y = 0;
-
-//	draw_background(m);
-	while(y < m->map_w)
+	p1[1] = 0;
+	draw_background(m);
+	while (p1[1] < m->map_w)
 	{
-
-		x = 0;
-		while (x < m->map_h)
+		p1[0] = 0;
+		while (p1[0] < m->map_h)
 		{
-			p1[0] = x;
-			p1[1] = y;
-			p2[0] = x + 1;
-			p2[1] = y;
-//			if (x != m->map_h - 1)
-//				printf("1  (%d %d %d) : (%d %d %d)\n", p1[0], p1[1], m->mmap[p1[1]][p1[0]], p2[0], p2[1], m->mmap[p2[1]][p2[0]]);
-			if (x != m->map_h - 1)
+			p2[0] = p1[0] + 1;
+			p2[1] = p1[1];
+			if (p1[0] != m->map_h - 1)
 				draw_line(p1, p2, m);
-			p2[0] = x;
-			p2[1] = y + 1;
-//			if (y != m->map_w - 1)
-//				printf("1  (%d %d %d) : (%d %d %d)\n", p1[0], p1[1], m->mmap[p1[1]][p1[0]], p2[0], p2[1], m->mmap[p2[1]][p2[0]]);
-			if (y != m->map_w - 1)
+			p2[0] = p1[0];
+			p2[1] = p1[1] + 1;
+			if (p1[1] != m->map_w - 1)
 				draw_line(p1, p2, m);
-			x++;
+			p1[0]++;
 		}
-		y++;
+		p1[1]++;
 	}
-
+	mlx_put_image_to_window(m->ptr, m->win_ptr, m->img_ptr, 0, 0);
 }

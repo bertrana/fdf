@@ -12,12 +12,9 @@
 
 #include "fdf.h"
 
-// gcc -I /usr/local/include main.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
-
-
 void	ex_error(int num)
 {
-	char 	*write_err;
+	char	*write_err;
 
 	if (num == 1)
 		write_err = "Not one argument\n";
@@ -43,7 +40,6 @@ int		main(int argv, char **argc)
 		ex_error(4);
 	mlx = ft_init(mlx, argc[1]);
 	draw_image(mlx);
-
 	mlx_put_image_to_window(mlx->ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 	controls(mlx);
 	mlx_loop(mlx->ptr);

@@ -89,5 +89,7 @@ void				ft_strdup_free(char **s, char *arg);
 void				ft_swap(int *a, int *b);
 void				ft_print_matri(int **matr, int x, int y);
 void				ft_print_massi(int *mass, int x);
+int					ft_min(int a, int b);
+int					ft_max(int a, int b);
 
 #endif

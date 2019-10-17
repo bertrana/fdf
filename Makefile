@@ -35,7 +35,8 @@ SOURCES_LIST = main.c\
 	ft_init.c\
 	draw_image.c\
 	controls.c\
-	iso.c
+	iso.c\
+	some_functions.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objects/

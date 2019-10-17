@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_massi.c                                   :+:      :+:    :+:   */
+/*   some_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yjohns <yjohns@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/28 13:03:53 by yjohns            #+#    #+#             */
-/*   Updated: 2019/10/02 01:44:26 by yjohns           ###   ########.fr       */
+/*   Created: 2019/10/02 02:59:13 by yjohns            #+#    #+#             */
+/*   Updated: 2019/10/06 14:52:05 by yjohns           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
 
-void	ft_print_massi(int *mass, int x)
+int		find_d_z(int **map, int h, int w)
 {
-	int		j;
-	char	n;
+	int	x;
+	int	y;
+	int min;
+	int max;
 
-	n = '\n';
-	j = 0;
-	while (j < x)
+	min = 0;
+	max = 0;
+	y = 0;
+	while (y < w)
 	{
-		ft_putnbr(mass[j]);
-		ft_putchar(' ');
-		j++;
+		x = 0;
+		while (x < h)
+		{
+			max = ft_max(map[y][x], max);
+			min = ft_min(map[y][x], min);
+			x++;
+		}
+		y++;
 	}
-	write(1, &n, 1);
+	return (max - min);
 }
